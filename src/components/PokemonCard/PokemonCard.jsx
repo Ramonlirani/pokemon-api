@@ -5,24 +5,74 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import './PokemonCard.css';
 
-export const PokemonCard = ({ name, image }) => {
+export const PokemonCard = ({
+  name,
+  image,
+  imageBack,
+  weight,
+  id,
+  type,
+  height,
+}) => {
+  const handleClick = () => {
+    const flipCardContainer = document.querySelector('.flip-card');
+    flipCardContainer.classList.toggle('flipped');
+  };
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 250 }} image={image} title="pokemons" />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {name.charAt(0).toUpperCase() + name.slice(1)}
-        </Typography>
-        {/* <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography> */}
-      </CardContent>
-      <CardActions>
-        <Button size="small">Visualizar</Button>
-        <Button size="small">Ler mais sobre</Button>
-      </CardActions>
-    </Card>
+    <div class="flip-card" onClick={handleClick}>
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img
+            src={image}
+            alt="PokemonFront"
+            style={{ width: '150px', height: '150px' }}
+          />
+
+          <h1 className="namePokemon">
+            {name.charAt(0).toUpperCase() + name.slice(1) + ` #${id}`}
+          </h1>
+          <div className="type-container">
+            <p
+              className={`typeName ${
+                type === 'bug'
+                  ? 'bugBackground'
+                  : type === 'normal'
+                  ? 'normalBackground'
+                  : type === 'poison'
+                  ? 'poisonBackground'
+                  : type === 'electric'
+                  ? 'electricBackground'
+                  : type === 'ground'
+                  ? 'groundBackground'
+                  : type === 'grass'
+                  ? 'grassBackground'
+                  : type === 'fire'
+                  ? 'fireBackground'
+                  : type === 'water'
+                  ? 'waterBackground'
+                  : type === 'fairy'
+                  ? 'fairyBackground'
+                  : ''
+              }`}
+            >
+              {type}
+            </p>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <img
+            src={imageBack}
+            alt="PokemonBack"
+            style={{ width: '150px', height: '150px' }}
+          />
+
+          <p className="weight">Weight: {weight}</p>
+          <p className="height">Height: {height}</p>
+        </div>
+      </div>
+    </div>
   );
 };

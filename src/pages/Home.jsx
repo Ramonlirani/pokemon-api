@@ -3,6 +3,7 @@ import { NavBar } from '../components/NavBar/NavBar';
 import { PokemonCard } from '../components/PokemonCard/PokemonCard';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { NavBarCustom } from '../components/NavBarCustom/NavBarCustom';
 
 export const Home = () => {
   const [pokemons, pokemonsSet] = useState([]);
@@ -66,7 +67,7 @@ export const Home = () => {
 
   const getAPI = () => {
     var endPoints = [];
-    for (var i = 1; i < 1000; i++) {
+    for (var i = 1; i < 50; i++) {
       endPoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
     }
     var response = axios
@@ -74,15 +75,12 @@ export const Home = () => {
       .then((res) => pokemonsSet(res))
       .catch((err) => console.log(err));
 
-    // axios
-    //   .get('https://pokeapi.co/api/v2/pokemon?limit=1000')
-    //   .then((res) => pokemonsSet(res))
-    //   .catch((err) => console.log(err));
+    return response;
   };
 
   return (
     <Box>
-      <NavBar />
+      <NavBarCustom />
       <Container maxWidth="xg">
         <Grid container>
           {filteredPokemons.map((pokemon, key) => (
@@ -90,6 +88,11 @@ export const Home = () => {
               <PokemonCard
                 name={pokemon.data.name}
                 image={pokemon.data.sprites.front_default}
+                imageBack={pokemon.data.sprites.back_default}
+                weight={pokemon.data.weight}
+                id={pokemon.data.id}
+                type={pokemon.data.types[0].type.name}
+                height={pokemon.data.height}
               />
             </Grid>
           ))}
