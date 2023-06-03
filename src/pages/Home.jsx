@@ -1,5 +1,4 @@
 import { Box, Container, Grid } from '@mui/material';
-import { NavBar } from '../components/NavBar/NavBar';
 import { PokemonCard } from '../components/PokemonCard/PokemonCard';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -79,7 +78,7 @@ export const Home = () => {
   };
 
   return (
-    <Box>
+    <div style={{ backgroundColor: '#000' }}>
       <NavBarCustom />
       <Container maxWidth="xg">
         <Grid container>
@@ -98,6 +97,6 @@ export const Home = () => {
           ))}
         </Grid>
       </Container>
-    </Box>
+    </div>
   );
 };
